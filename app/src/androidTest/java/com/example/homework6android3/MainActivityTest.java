@@ -9,6 +9,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
+import static org.hamcrest.Matchers.isEmptyString;
+
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -25,17 +27,12 @@ public class MainActivityTest {
 
     @Test
     public void simplePlusTest(){
+        onView(withId(R.id.et_num1)).perform().check(matches(withText(isEmptyString())));
         onView(withId(R.id.et_num1)).perform(typeText("12"));
+        onView(withId(R.id.et_num2)).perform().check(matches(withText(isEmptyString())));
         onView(withId(R.id.et_num2)).perform(typeText("17"));
         onView(withId(R.id.btn_vis)).perform(click());
         onView(withId(R.id.tv_result)).check(matches(withText("29")));
     }
 
-    @Test
-    public void checkEmpty(){
-        onView(withId(R.id.et_num1)).perform(typeText(""));
-        onView(withId(R.id.et_num2)).perform(typeText(""));
-        onView(withId(R.id.btn_vis)).perform(click());
-        onView(withId(R.id.tv_result)).check(matches(withText("Empty")));
-    }
 }
