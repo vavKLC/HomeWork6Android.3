@@ -1,0 +1,41 @@
+package com.example.homework6android3;
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
+public class MainActivityTest {
+
+    @Rule
+    public ActivityScenarioRule rule = new ActivityScenarioRule<>(MainActivity.class);
+
+    @Test
+    public void simplePlusTest(){
+        onView(withId(R.id.et_num1)).perform(typeText("12"));
+        onView(withId(R.id.et_num2)).perform(typeText("17"));
+        onView(withId(R.id.btn_vis)).perform(click());
+        onView(withId(R.id.tv_result)).check(matches(withText("29")));
+    }
+
+    @Test
+    public void checkEmpty(){
+        onView(withId(R.id.et_num1)).perform(typeText(""));
+        onView(withId(R.id.et_num2)).perform(typeText(""));
+        onView(withId(R.id.btn_vis)).perform(click());
+        onView(withId(R.id.tv_result)).check(matches(withText("Empty")));
+    }
+}
